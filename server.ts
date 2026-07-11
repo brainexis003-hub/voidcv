@@ -963,7 +963,7 @@ const escapeInternalQuotes = (jsonStr: string): string => {
   return result;
 };
 
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 // Initialize secrets according to priority list, with fallback to old variable names
 const cerebrasApiKeyPrimary = cleanEnvVar(process.env.CEREBRAS_API_KEY_PRIMARY, "MY_CEREBRAS_API_KEY_PRIMARY");
@@ -4768,7 +4768,10 @@ Important: Return ONLY a valid JSON with "htmlCode" containing the full HTML str
 async function startServer() {
   const httpServer = http.createServer(app);
 
-  if (process.env.NODE_ENV !== "production") {
+  const isProduction = process.env.NODE_ENV === "production" || 
+    (typeof __filename !== "undefined" && (__filename.includes("dist") || __filename.includes("server.cjs")));
+
+  if (!isProduction) {
     console.log("[VoidCV] Mounting Vite Development Middleware...");
     const vite = await createViteServer({
       server: {
