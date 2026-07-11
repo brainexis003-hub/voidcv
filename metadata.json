@@ -1,0 +1,6 @@
+{
+  "name": "VoidCV",
+  "description": "An AI-powered career co-pilot for crafting optimized resumes, analyzing ATS matches, preparing for interviews, optimizing LinkedIn, generating portfolios, and tracking job applications.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

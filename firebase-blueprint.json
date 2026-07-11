@@ -1,0 +1,64 @@
+{
+  "entities": {
+    "usageLimit": {
+      "title": "usageLimit",
+      "description": "Information about a user's free usage limit for a specific module or individual AI button",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The Firebase Auth UID of the user"
+        },
+        "moduleName": {
+          "type": "string",
+          "description": "The name of the module (e.g. AI Resume Builder, ATS Resume Analyzer, etc.)"
+        },
+        "buttonName": {
+          "type": "string",
+          "description": "The name of the specific AI button (optional, null/empty for module-level limits)"
+        },
+        "totalAllowedGenerations": {
+          "type": "integer",
+          "description": "Total number of allowed successful free generations (default 4)"
+        },
+        "usedGenerations": {
+          "type": "integer",
+          "description": "Total number of used successful free generations"
+        },
+        "remainingGenerations": {
+          "type": "integer",
+          "description": "Total remaining free generations"
+        },
+        "firstGenerationTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the user's first successful generation in this 24-hour cycle"
+        },
+        "resetTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the 24-hour limit resets"
+        },
+        "lastUpdatedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last successful generation"
+        }
+      },
+      "required": [
+        "userId",
+        "moduleName",
+        "totalAllowedGenerations",
+        "usedGenerations",
+        "remainingGenerations",
+        "lastUpdatedTimestamp"
+      ]
+    }
+  },
+  "firestore": {
+    "/usageLimits/{limitId}": {
+      "schema": "usageLimit",
+      "description": "Collection tracking user generation limits"
+    }
+  }
+}
